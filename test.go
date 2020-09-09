@@ -4,48 +4,41 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 func main() {
-	stringies()
 
+	// ask the user how many apples
+	fmt.Print("How many times should I say 'Apple'?: ")
+	reader := bufio.NewReader(os.Stdin)
+	// read the user's input
+	userInput, err := reader.ReadString('\n')
+	// check if there was an error reading the input
+	if err != nil {
+		fmt.Println(os.Stderr, err)
+		return
+	}
+	// convert the user's input from a string to an int
+	userInput = strings.TrimSuffix(userInput, "\r\n")
+
+	input, err := strconv.ParseInt(userInput, 10, 64)
+
+	// // do some error checking
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	// loop and increment a counter until it reaches the number entered
+	// by the user
+	i := input
+
+	for c := int64(1); c <= i; c++ {
+		fmt.Println(c)
+	}
 }
-
-// func appleit() {
-// 	// ask the user how many apples
-// 	fmt.Print("How many times should I say 'Apple'?: ")
-// 	reader := bufio.NewReader(os.Stdin)
-// 	// read the user's input
-// 	userInput, err := reader.ReadString('\n')
-// 	// check if there was an error reading the input
-// 	if err != nil {
-// 		fmt.Println(os.Stderr, err)
-// 		return
-// 	}
-// 	// convert the user's input from a string to an int
-// 	a, err := strconv.Atoi("10")
-// 	// do some error checking
-// 	if err != nil {
-// 		fmt.Println("Error converting str to int:", err)
-// 	} else {
-// 		fmt.Println("Apple", a)
-// 	}
-// 	// loop and increment a counter until it reaches the number entered
-// 	// by the user
-// 	i := userInput
-// 	counter := 0
-// 	for key, variable := range a {
-// 		// print the word apple during the loop
-// 		// increment the counter
-// 		if value > 0 {
-// 			fmt.Println("Apple")
-// 		} else {
-// 			fmt.Println()
-
-// 		}
-// 	}
-// }
 
 func whatdoyouwantfromme() {
 	fmt.Print("Is the world flat? [Yes/no]: ")
@@ -105,7 +98,6 @@ func oldTestingStuff() {
 		b++
 	}
 
-	// I'm so lonely, halp
 	fmt.Println("")
 }
 
