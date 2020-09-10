@@ -9,6 +9,51 @@ import (
 )
 
 func main() {
+	//ask what should be said
+	fmt.Println("What should I say? :) ")
+	//read the user's input
+	reader := bufio.NewReader(os.Stdin)
+	wordToBeSaid, err := reader.ReadString('\n')
+	//check for errors in the input
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	wordToBeSaid = strings.TrimSpace(wordToBeSaid)
+
+	//ask how many times it should be said
+	fmt.Println(fmt.Sprintf("How many times should I say %s? :/", wordToBeSaid))
+	// fmt.Println("How many times should I say it? :/ ")
+	//todo: update the second question with user input
+	//todo: words into digits? z.B. "three" to "3"
+	//read the user's input...again
+	reader = bufio.NewReader(os.Stdin)
+	amountOfTimes, err := reader.ReadString('\n')
+	//error checking
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//convert the user input from string into an int
+	amountOfTimes = strings.TrimSpace(amountOfTimes)
+	amountOfTimes2, err := strconv.Atoi(amountOfTimes)
+	//another error check
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//loop and increment a counter
+	i := 0
+	for i < amountOfTimes2 {
+		i++
+		fmt.Println(fmt.Sprintf("%s number %d", wordToBeSaid, i))
+	}
+
+	//use Sprintf with user's input from first question instead of literal word
+
+}
+
+func appleit() {
 
 	// ask the user how many apples
 	fmt.Print("How many times should I say 'Apple'?: ")
@@ -17,7 +62,7 @@ func main() {
 	userInput, err := reader.ReadString('\n')
 	// check if there was an error reading the input
 	if err != nil {
-		fmt.Println(os.Stderr, err)
+		fmt.Fprintln(os.Stderr, err)
 		return
 	}
 	// convert the user's input from a string to an int
@@ -33,13 +78,12 @@ func main() {
 
 	// loop and increment a counter until it reaches the number entered
 	// by the user
-	i := input
 
-	for c := int64(1); c <= i; c++ {
+	for c := int64(1); c <= input; c++ {
 
-		str1 := strconv.FormatInt(int64(i), 10)
-		str1 = "Apple"
-		fmt.Println(str1)
+		// str1 := strconv.FormatInt(int64(input), 10)
+		// str1 = "Apple"
+		fmt.Println(fmt.Sprintf("%s %d", "Apple", c))
 	}
 
 	fmt.Println("Bitteschön")

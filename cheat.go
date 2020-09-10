@@ -84,4 +84,18 @@ func stringies() {
 	for _, letter := range sillystring {
 		fmt.Println(string(letter))
 	}
+
+	amountOfTimes2 := 1
+	wordToBeSaid := "h\ni"
+	i := 0 // 'i' is a standard counter variable
+	for i < amountOfTimes2 {
+		i++
+		fmt.Println(fmt.Sprintf("%s number %d", wordToBeSaid, i)) //Sprintf allows variables to intermingle
+		//%s, %d, usw are used as placeholders, followed by the proper type
+	}
+	multiLineString := `h\ni 
+	moin
+	moin` //back ticks allow for multi line strings without the use of "\n"
+
+	fmt.Println(multiLineString)
 }
