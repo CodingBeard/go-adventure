@@ -93,7 +93,7 @@ func stringies() {
 		fmt.Println(fmt.Sprintf("%s number %d", wordToBeSaid, i)) //Sprintf allows variables to intermingle
 		//%s, %d, usw are used as placeholders, followed by the proper type
 	}
-	multiLineString := `h\ni 
+	multiLineString := `hi 
 	moin
 	moin` //back ticks allow for multi line strings without the use of "\n"
 
