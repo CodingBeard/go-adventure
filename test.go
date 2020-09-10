@@ -8,34 +8,34 @@ import (
 	"strings"
 )
 
-func main() {
-	//ask what should be said
-	fmt.Println("What should I say? :) ")
-	//read the user's input
-	reader := bufio.NewReader(os.Stdin)
-	wordToBeSaid, err := reader.ReadString('\n')
-	//check for errors in the input
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-	wordToBeSaid = strings.TrimSpace(wordToBeSaid)
+func readTheInput(question string) (string, error) {
 
-	//ask how many times it should be said
-	fmt.Println(fmt.Sprintf("How many times should I say %s? :/", wordToBeSaid))
-	// fmt.Println("How many times should I say it? :/ ")
-	//todo: update the second question with user input
-	//todo: words into digits? z.B. "three" to "3"
-	//read the user's input...again
-	reader = bufio.NewReader(os.Stdin)
-	amountOfTimes, err := reader.ReadString('\n')
-	//error checking
+	fmt.Println(question)
+
+	reader := bufio.NewReader(os.Stdin)
+	usersInput, err := reader.ReadString('\n')
+
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(usersInput), nil
+}
+
+func main() {
+
+	wordToBeSaid, err := readTheInput("What should I say? :)")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//convert the user input from string into an int
-	amountOfTimes = strings.TrimSpace(amountOfTimes)
+
+	amountOfTimes, err := readTheInput(fmt.Sprintf("How many times should I say %s? :/", wordToBeSaid))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//todo: words into digits? z.B. "three" to "3"
+
 	amountOfTimes2, err := strconv.Atoi(amountOfTimes)
 	//another error check
 	if err != nil {
