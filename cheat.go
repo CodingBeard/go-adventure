@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 func initializingAndUpdatingVariables() {
 	// fmt.Println(myInitializedVariable) <- this will not work before we initialise the variable
@@ -98,4 +101,40 @@ func stringies() {
 	moin` //back ticks allow for multi line strings without the use of "\n"
 
 	fmt.Println(multiLineString)
+}
+func testFunction() { //just a test function. That's it.
+	fmt.Println("Moin Moin.")
+}
+
+func returningFunction() string { //this function will return a sting every time it is called
+	return "Hallöchen~"
+}
+
+func twoReturnFunction() (string, error) {
+	return "Bitte wat?", errors.New("Plattdeutsch nicht erkannt") //returning two values bzw. string and error
+}
+
+func argueWithMe(arg1 int) (bool, error) { //bool = true or false
+
+	if arg1 > 5 {
+		return true, nil
+	}
+	return false, errors.New("The number you gave me was smaller than 5")
+}
+
+func funtions() {
+	testFunction() //'testFunction' does not accept any arg when calling it, also does not return anything
+	//it will still execute that which is inside the function itself
+
+	h := returningFunction()
+	fmt.Println(h) //will print "Hallöchen~"
+
+	p, err := twoReturnFunction()
+	fmt.Println(p, err) //this will print the string and error from the twoReturnFunction
+
+	a, err := argueWithMe(7)
+	fmt.Println(a) //this would print the word 'true'; error will be 'nil'
+
+	a, err = argueWithMe(2)
+	fmt.Println(a) // this would print 'false'; error will be "The number you gave me...blahblahblah"
 }
