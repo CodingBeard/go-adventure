@@ -36,8 +36,13 @@ func main() {
 	i := input
 
 	for c := int64(1); c <= i; c++ {
-		fmt.Println(c)
+
+		str1 := strconv.FormatInt(int64(i), 10)
+		str1 = "Apple"
+		fmt.Println(str1)
 	}
+
+	fmt.Println("Bitteschön")
 }
 
 func whatdoyouwantfromme() {
