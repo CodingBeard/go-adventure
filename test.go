@@ -6,6 +6,9 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/divan/num2words"
+	"github.com/rodaine/numwords"
 )
 
 func readTheInput(question string) (string, error) {
@@ -22,7 +25,6 @@ func readTheInput(question string) (string, error) {
 }
 
 func main() {
-
 	wordToBeSaid, err := readTheInput("What should I say? :)")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -39,18 +41,44 @@ func main() {
 	amountOfTimes2, err := strconv.Atoi(amountOfTimes)
 	//another error check
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
+		amountOfTimes2, err = numwords.ParseInt(amountOfTimes)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return
+		}
 	}
 	//loop and increment a counter
+	//todo: type response into numbers as well
 	i := 0
 	for i < amountOfTimes2 {
 		i++
-		fmt.Println(fmt.Sprintf("%s number %d", wordToBeSaid, i))
+		fmt.Println(
+			fmt.Sprintf(
+				"%s number %s",
+				wordToBeSaid,
+				num2words.Convert(i),
+			),
+		)
 	}
 
 	//use Sprintf with user's input from first question instead of literal word
 
+}
+
+func lookatme() {
+	word := "thirty two"
+	number := 0
+
+	for i := 0; i < 1000; i++ {
+		if num2words.Convert(i) == word {
+			number = i
+			fmt.Println(number)
+			break
+		}
+	}
+
+	fmt.Println(num2words.Convert(17))
+	return
 }
 
 func appleit() {
