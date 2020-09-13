@@ -25,6 +25,10 @@ func readTheInput(question string) (string, error) {
 }
 
 func main() {
+	functions()
+}
+
+func appleQuestion() {
 	wordToBeSaid, err := readTheInput("What should I say? :)")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -36,7 +40,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//todo: words into digits? z.B. "three" to "3"
 
 	amountOfTimes2, err := strconv.Atoi(amountOfTimes)
 	//another error check

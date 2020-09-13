@@ -122,7 +122,26 @@ func argueWithMe(arg1 int) (bool, error) { //bool = true or false
 	return false, errors.New("The number you gave me was smaller than 5")
 }
 
-func funtions() {
+func addWithMe(integers ...int) (int, error) { //variadic argument can accept any number of integer argurments
+	fmt.Println(integers)
+
+	// todo: take integers and add them up, then return the result
+	a := 0
+	for _, i := range integers {
+		a += i
+	}
+	return a, nil
+}
+
+func printSum(message string, integers ...int) {
+	b := 1
+	for _, i := range integers {
+		b *= i
+	}
+	fmt.Println(message, b)
+}
+
+func functions() {
 	testFunction() //'testFunction' does not accept any arg when calling it, also does not return anything
 	//it will still execute that which is inside the function itself
 
@@ -137,4 +156,14 @@ func funtions() {
 
 	a, err = argueWithMe(2)
 	fmt.Println(a) // this would print 'false'; error will be "The number you gave me...blahblahblah"
+
+	addWithMe() //it printed nothing; it is okay to not give any arguments to a variadic
+
+	addWithMe(2, 58, 7) //prints the three arguments
+
+	c, err := addWithMe(2, 6, 10) //adds and prints the sum of the given integers
+	fmt.Println(c)
+
+	printSum("The sum is: ", 2, 10, 2) //this will print the sum of all of the integers prepended with the first string argument
+
 }
