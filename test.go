@@ -26,14 +26,34 @@ func readTheInput(question string) (string, error) {
 	return strings.TrimSpace(usersInput), nil
 }
 
-func count(arg1 int, string) {
+func countSync(arg1 int, thing string) {
 	for i := 1; i <= arg1; i++ {
-		fmt.Println(i, string)
+		fmt.Println(i, thing)
 		time.Sleep(time.Millisecond * 500)
 	}
 }
+
+func countAsync(arg1 int, thing string, wg sync.WaitGroup) {
+	for i := 1; i <= arg1; i++ {
+		fmt.Println(i, thing)
+		time.Sleep(time.Millisecond * 500)
+	}
+	wg.Done()
+}
+
 func main() {
-	//Ask the question
+	// ask for a list of things to say
+
+	// ask for a list of times to say each thing
+
+	// use strings.Split() to split the lists on a specific character (E.G. split a, b, c on ',' to give you []string{"a", "b", "c"})
+
+	// range over each thing to say and spawn a go routine so they all say things in parallel threads
+
+	// wait for all the goroutines to finish
+}
+
+func mainWithPortals() {
 	response, err := readTheInput("Do you think I can multitask?")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -45,55 +65,58 @@ func main() {
 	} else {
 		fmt.Println("Let me prove it then")
 	}
-	//first question, first word to be said
+
 	word1, err := readTheInput("What should I say first?")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//how many times should it be said?
+
 	amountOfWord1, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word1))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//convert amout to int
+
 	amountOfWordOne, err := strconv.Atoi(amountOfWord1)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
 
-	//what should the second word be?
 	word2, err := readTheInput("Great, now what should my second word be?")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//how many time should the second word be said?
+
 	amountOfWord2, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word2))
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
-	//convert amount to int
+
 	amountOfWordTwo, err := strconv.Atoi(amountOfWord2)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
 
-	//establish wait group
+	// let's pretend for the moment the go routines never run, what happens on each line here?
 	var wg sync.WaitGroup
-	wg.Add(1)
+	wg.Add(2) //the wg is waiting on two goroutines?
 
-	//create the go function for the first word to be said
-	go count(amountOfWordOne, word1)
-	wg.Done()
+	go countAsync(amountOfWordOne, word1, wg)
 
-	count(amountOfWordTwo, word2) 
-	
-	//currently giving the amount of times in terminal
+	go func() {
+		countSync(amountOfWordTwo, word2)
+		wg.Done()
+	}()
+
+	wg.Wait() // waiting for the other to finish?
+
+	fmt.Println("See?")
+
 }
 
 func appleQuestion() {
