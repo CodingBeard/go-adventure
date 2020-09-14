@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/divan/num2words"
 	"github.com/rodaine/numwords"
@@ -24,8 +26,74 @@ func readTheInput(question string) (string, error) {
 	return strings.TrimSpace(usersInput), nil
 }
 
+func count(arg1 int, string) {
+	for i := 1; i <= arg1; i++ {
+		fmt.Println(i, string)
+		time.Sleep(time.Millisecond * 500)
+	}
+}
 func main() {
-	functions()
+	//Ask the question
+	response, err := readTheInput("Do you think I can multitask?")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+
+	if strings.TrimSpace(strings.ToLower(response)) == "yes" {
+		fmt.Println("Well, thank you")
+	} else {
+		fmt.Println("Let me prove it then")
+	}
+	//first question, first word to be said
+	word1, err := readTheInput("What should I say first?")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//how many times should it be said?
+	amountOfWord1, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word1))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//convert amout to int
+	amountOfWordOne, err := strconv.Atoi(amountOfWord1)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+
+	//what should the second word be?
+	word2, err := readTheInput("Great, now what should my second word be?")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//how many time should the second word be said?
+	amountOfWord2, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word2))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+	//convert amount to int
+	amountOfWordTwo, err := strconv.Atoi(amountOfWord2)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+
+	//establish wait group
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	//create the go function for the first word to be said
+	go count(amountOfWordOne, word1)
+	wg.Done()
+
+	count(amountOfWordTwo, word2) 
+	
+	//currently giving the amount of times in terminal
 }
 
 func appleQuestion() {
