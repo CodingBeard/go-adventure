@@ -33,7 +33,7 @@ func countSync(arg1 int, thing string) {
 	}
 }
 
-func countAsync(arg1 int, thing string, wg sync.WaitGroup) {
+func countAsync(arg1 int, thing string, wg *sync.WaitGroup) {
 	for i := 1; i <= arg1; i++ {
 		fmt.Println(i, thing)
 		time.Sleep(time.Millisecond * 500)
@@ -43,15 +43,64 @@ func countAsync(arg1 int, thing string, wg sync.WaitGroup) {
 
 func main() {
 	// ask for a list of things to say
+	response, err := readTheInput("Give me three words to say.")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
 
 	// ask for a list of times to say each thing
+	//todo: insert response into the question
+	menge, err := readTheInput("How many times should I say each of those words?")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+
+	// menge2, err := strconv.Atoi(menge)
+
+	stringtime := strings.Split(menge, ",")
+	//range over stringtime
+	intTime := []int{}
+	for _, faden := range stringtime {
+		fadenInt, err := strconv.Atoi(strings.TrimSpace(faden))
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return
+		}
+
+		intTime = append(intTime, fadenInt)
+	}
+	//convert the items in the string to an int
+	//append to intTime slice with new int
 
 	// use strings.Split() to split the lists on a specific character (E.G. split a, b, c on ',' to give you []string{"a", "b", "c"})
+	stringtime2 := strings.Split(response, ",")
+
+	if len(stringtime2) != len(intTime) {
+		fmt.Fprintln(os.Stderr, "stringtime2 and intTime not the same length")
+		return
+	}
+
+	wg := &sync.WaitGroup{}
+	wg.Add(len(stringtime2))
 
 	// range over each thing to say and spawn a go routine so they all say things in parallel threads
+	for places := range stringtime2 {
 
-	// wait for all the goroutines to finish
+		// places = 0 then 1 then 2
+		// intTime contains number 1 at place 0, number 2 at place 1, number 3 at place 2
+
+		go countAsync(intTime[places], strings.TrimSpace(stringtime2[places]), wg)
+
+	}
+
+	wg.Wait()
+
+	fmt.Println(" :) ")
 }
+
+// wait for all the goroutines to finish
 
 func mainWithPortals() {
 	response, err := readTheInput("Do you think I can multitask?")
@@ -103,7 +152,7 @@ func mainWithPortals() {
 	}
 
 	// let's pretend for the moment the go routines never run, what happens on each line here?
-	var wg sync.WaitGroup
+	wg := &sync.WaitGroup{}
 	wg.Add(2) //the wg is waiting on two goroutines?
 
 	go countAsync(amountOfWordOne, word1, wg)
