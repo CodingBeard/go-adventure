@@ -3,6 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func initializingAndUpdatingVariables() {
@@ -62,6 +65,19 @@ func loops() {
 		_ = egg //discards egg, just uses egg to make compiler happy
 	}
 
+	menge := "a, b, c"
+	intTime := []int{} //variables are able to be used inside the scope below from outside, but variables within the scope will only
+	//be read within the scope itself
+	stringtime := strings.Split(menge, ",") //splits the list at a specific character to give a slice of strings
+	for _, faden := range stringtime {
+		fadenInt, err := strconv.Atoi(strings.TrimSpace(faden))
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			return
+		}
+		intTime = append(intTime, fadenInt)
+	}
+
 	counter := 0
 	for counter < 10 { //for every time the counter is lower than 10, run the code between the squiggly brackets
 		counter++ // add one to counter
@@ -101,7 +117,18 @@ func stringies() {
 	moin` //back ticks allow for multi line strings without the use of "\n"
 
 	fmt.Println(multiLineString)
+
+	stringtime2 := "strings"
+	intTime := "strings"
+	if len(stringtime2) != len(intTime) { //len() measures the length of two strings
+		fmt.Fprintln(os.Stderr, "stringtime2 and intTime not the same length") //if they are not the same length, print: (err)
+		return                                                                 //if two strings are not the same length, it will throw an error and return
+	}
+
+	_ = stringtime2
+	_ = intTime
 }
+
 func testFunction() { //just a test function. That's it.
 	fmt.Println("Moin Moin.")
 }

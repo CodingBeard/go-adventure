@@ -61,6 +61,7 @@ func main() {
 
 	stringtime := strings.Split(menge, ",")
 	//range over stringtime
+	//todo: add to chat.go (inside outside explaination)
 	intTime := []int{}
 	for _, faden := range stringtime {
 		fadenInt, err := strconv.Atoi(strings.TrimSpace(faden))
@@ -76,7 +77,7 @@ func main() {
 
 	// use strings.Split() to split the lists on a specific character (E.G. split a, b, c on ',' to give you []string{"a", "b", "c"})
 	stringtime2 := strings.Split(response, ",")
-
+	//todo: add len() to cheat.go
 	if len(stringtime2) != len(intTime) {
 		fmt.Fprintln(os.Stderr, "stringtime2 and intTime not the same length")
 		return
@@ -86,6 +87,7 @@ func main() {
 	wg.Add(len(stringtime2))
 
 	// range over each thing to say and spawn a go routine so they all say things in parallel threads
+	//todo: add this to cheat.go (the use of places to combine two slices together)
 	for places := range stringtime2 {
 
 		// places = 0 then 1 then 2
