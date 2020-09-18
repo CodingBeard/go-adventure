@@ -42,6 +42,10 @@ func countAsync(arg1 int, thing string, wg *sync.WaitGroup) {
 }
 
 func main() {
+
+}
+
+func soMuchWord() {
 	// ask for a list of things to say
 	response, err := readTheInput("Give me three words to say.")
 	if err != nil {
