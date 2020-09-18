@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 )
 
 func initializingAndUpdatingVariables() {
@@ -93,6 +94,17 @@ func loops() {
 	for counter2 := 0; counter2 < 10; counter2++ { //same as before, just saving lines of code
 		fmt.Println(counter2)
 	}
+
+	stringtime2 := []string{}
+
+	wg := &sync.WaitGroup{} //'&' is a pointer that directs to a variable's memory address; '*' is the counter part to the ampersand
+	wg.Add(len(stringtime2))
+
+	for places := range stringtime2 { //uses the positions to combine two strings together
+
+		go countAsync(intTime[places], strings.TrimSpace(stringtime2[places]), wg)
+
+	}
 }
 
 func stringies() {
@@ -124,9 +136,6 @@ func stringies() {
 		fmt.Fprintln(os.Stderr, "stringtime2 and intTime not the same length") //if they are not the same length, print: (err)
 		return                                                                 //if two strings are not the same length, it will throw an error and return
 	}
-
-	_ = stringtime2
-	_ = intTime
 }
 
 func testFunction() { //just a test function. That's it.
