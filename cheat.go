@@ -203,3 +203,51 @@ func functions() {
 	printSum("The sum is: ", 2, 10, 2) //this will print the sum of all of the integers prepended with the first string argument
 
 }
+func localStructs() { //a local struct are the things within the squiggly brackets
+	type counter struct {
+		word string //word is a property of the counter struct
+	}
+
+	c := counter{} //intializing the counter struct
+	c.word = "banana"
+
+	fmt.Println(c.word)
+
+	d := counter{word: "Mango"} //initializing again but with a different word within the squiggly brackets
+
+	fmt.Println(d.word)
+
+}
+
+type counter2 struct { //printed within the global scope, and can be called into other functions
+	word   string
+	amount int
+}
+
+func (c counter2) count() { //requires counter2 to be used as an arguement; c is still a copy rahter than the actual struct
+	i := 0
+	for i < c.amount {
+		i++
+		fmt.Println(c.word)
+	}
+}
+
+func (c *counter2) updateWord(word string) { //pointer is used to use the actual struct instead of a copy in order to update the word with 'c.updateWord'
+	c.word = word
+
+}
+func globalStructs() {
+	c := counter2{}
+	c.word = "Wassermelone"
+	c.amount = 2
+
+	//d := counter{} - counter is unavailable outside of localStructs, whereas counter2 is outside both funcs
+
+	//count() - cannot be used it's not in the global scope
+	c.count()
+	c.word = "Tierheim"
+	c.count()
+
+	c.updateWord("potatoes")
+	c.count()
+}
