@@ -9,9 +9,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
-	"github.com/divan/num2words"
-	"github.com/rodaine/numwords"
 )
 
 func readTheInput(question string) (string, error) {
@@ -46,7 +43,15 @@ func main() {
 	app := task.Application{}
 	app.AddTask(&task.DoubleListCounter{})
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a task name")
+		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
+	}
+	app.AddTask(&task.MultiTasking{})
+	if len(os.Args) < 2 {
+		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
+	}
+	app.AddTask(&task.NumberConvert{})
+	if len(os.Args) < 2 {
+		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
 	}
 
 	err := app.RunTask(os.Args[1])
@@ -55,128 +60,6 @@ func main() {
 		return
 	}
 
-}
-
-func mainWithPortals() {
-	response, err := readTheInput("Do you think I can multitask?")
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	if strings.TrimSpace(strings.ToLower(response)) == "yes" {
-		fmt.Println("Well, thank you")
-	} else {
-		fmt.Println("Let me prove it then")
-	}
-
-	word1, err := readTheInput("What should I say first?")
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfWord1, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word1))
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfWordOne, err := strconv.Atoi(amountOfWord1)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	word2, err := readTheInput("Great, now what should my second word be?")
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfWord2, err := readTheInput(fmt.Sprintf("And how many times should I say %s?", word2))
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfWordTwo, err := strconv.Atoi(amountOfWord2)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	// let's pretend for the moment the go routines never run, what happens on each line here?
-	wg := &sync.WaitGroup{}
-	wg.Add(2) //the wg is waiting on two goroutines?
-
-	go countAsync(amountOfWordOne, word1, wg)
-
-	go func() {
-		countSync(amountOfWordTwo, word2)
-		wg.Done()
-	}()
-
-	wg.Wait() // waiting for the other to finish?
-
-	fmt.Println("See?")
-
-}
-
-func appleQuestion() {
-	wordToBeSaid, err := readTheInput("What should I say? :)")
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfTimes, err := readTheInput(fmt.Sprintf("How many times should I say %s? :/", wordToBeSaid))
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	amountOfTimes2, err := strconv.Atoi(amountOfTimes)
-	//another error check
-	if err != nil {
-		amountOfTimes2, err = numwords.ParseInt(amountOfTimes)
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			return
-		}
-	}
-	//loop and increment a counter
-	//todo: type response into numbers as well
-	i := 0
-	for i < amountOfTimes2 {
-		i++
-		fmt.Println(
-			fmt.Sprintf(
-				"%s number %s",
-				wordToBeSaid,
-				num2words.Convert(i),
-			),
-		)
-	}
-
-	//use Sprintf with user's input from first question instead of literal word
-
-}
-
-func lookatme() {
-	word := "thirty two"
-	number := 0
-
-	for i := 0; i < 1000; i++ {
-		if num2words.Convert(i) == word {
-			number = i
-			fmt.Println(number)
-			break
-		}
-	}
-
-	fmt.Println(num2words.Convert(17))
-	return
 }
 
 func appleit() {

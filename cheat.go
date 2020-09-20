@@ -25,6 +25,7 @@ func initializingAndUpdatingVariables() {
 	//string := "myStringValue" <- using a reserved keyword as a varaible name will not work
 	//reserved keywords will be a different color z.B. func, string, int, usw.
 }
+
 func slices() {
 	//initializing the variable 'pizzaSlice' as an empty slice of integers(int)
 	var pizzaSlice []int
