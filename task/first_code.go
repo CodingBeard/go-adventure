@@ -10,6 +10,11 @@ func (f *FirstCode) GetName() string {
 	return "Strawberry_Pie"
 }
 
+//GetDescr gets the description
+func (f *FirstCode) GetDescr() string {
+	return "appends numbers to a slice"
+}
+
 //Run will execute FirstCode
 func (f *FirstCode) Run() error {
 	var a []int

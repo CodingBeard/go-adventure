@@ -26,6 +26,11 @@ func (d *DoubleListCounter) GetName() string {
 	return "Mango_Pie"
 }
 
+//GetDescr will get the description
+func (d *DoubleListCounter) GetDescr() string {
+	return "asks for lists and counts them"
+}
+
 //Run will execute the DoubleListCounter
 func (d *DoubleListCounter) Run() error {
 	// ask for a list of things to say

@@ -14,6 +14,11 @@ func (w *WordConvert) GetName() string {
 	return "Banana_Pie"
 }
 
+//GetDescr will get the description
+func (w *WordConvert) GetDescr() string {
+	return "converts written numbers into ints"
+}
+
 //Run will execute WordConvert
 func (w *WordConvert) Run() error {
 	word := "thirty two"

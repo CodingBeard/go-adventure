@@ -15,6 +15,11 @@ func (r *RespondInput) GetName() string {
 	return "Blueberry_Pie"
 }
 
+//GetDescr will get the description
+func (r *RespondInput) GetDescr() string {
+	return "responds according to a user's input"
+}
+
 //Run will execute RespondInput
 func (r *RespondInput) Run() error {
 	fmt.Print("Is the world flat? [Yes/no]: ")

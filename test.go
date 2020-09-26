@@ -41,38 +41,25 @@ func countAsync(arg1 int, thing string, wg *sync.WaitGroup) {
 func main() {
 	app := task.Application{}
 	app.AddTask(&task.DoubleListCounter{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.MultiTasking{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.NumberConvert{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.WordConvert{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.ConvertInput{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.RespondInput{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.Summing{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
-	}
+
 	app.AddTask(&task.FirstCode{})
-	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Please provide a valid task name")
+	taskName := ""
+	if len(os.Args) > 1 {
+		taskName = os.Args[1]
 	}
-	err := app.RunTask(os.Args[1])
+	err := app.RunTask(taskName)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return

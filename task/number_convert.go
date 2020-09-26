@@ -17,6 +17,11 @@ func (n *NumberConvert) GetName() string {
 	return "Apple_Pie"
 }
 
+//GetDescr gets the description
+func (n *NumberConvert) GetDescr() string {
+	return "converts numbers into words"
+}
+
 //Run executes NumberConvert
 func (n *NumberConvert) Run() error {
 	wordToBeSaid, err := readTheInput("What should I say? :)")

@@ -32,6 +32,11 @@ func (m *MultiTasking) GetName() string {
 	return "Cherry_Pie"
 }
 
+//GetDescr will get the description
+func (m *MultiTasking) GetDescr() string {
+	return "allows several tasks to run at the same time"
+}
+
 //Run will execute MultiTasking
 func (m *MultiTasking) Run() error {
 

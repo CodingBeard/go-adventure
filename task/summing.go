@@ -10,6 +10,11 @@ func (s *Summing) GetName() string {
 	return "Blackberry_Pie"
 }
 
+//GetDescr will get the description
+func (s *Summing) GetDescr() string {
+	return "adds the sum of ints given"
+}
+
 //Run will execute Summing
 func (s *Summing) Run() error {
 	x := 7

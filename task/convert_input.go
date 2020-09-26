@@ -16,6 +16,11 @@ func (c *ConvertInput) GetName() string {
 	return "Peach_Pie"
 }
 
+//GetDescr will get the description
+func (c *ConvertInput) GetDescr() string {
+	return "converts a user's input into something the computer can read"
+}
+
 //Run will execute ConvertInput
 func (c *ConvertInput) Run() error {
 	// ask the user how many apples
