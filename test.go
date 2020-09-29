@@ -55,6 +55,9 @@ func main() {
 	app.AddTask(&task.Summing{})
 
 	app.AddTask(&task.FirstCode{})
+
+	app.AddTask((&task.ReadWrite{}))
+
 	taskName := ""
 	if len(os.Args) > 1 {
 		taskName = os.Args[1]
@@ -64,5 +67,6 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		return
 	}
+	return
 
 }
