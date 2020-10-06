@@ -38,14 +38,14 @@ func countAsync(arg1 int, thing string, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-func AddSum(x int) (result int) {
+func addSum(x int) (result int) {
 	result = x + 2
 	return (result)
 }
 
 func main() {
 
-	result := AddSum(3)
+	result := addSum(3)
 	fmt.Println(result)
 
 	app := task.Application{}
@@ -66,8 +66,6 @@ func main() {
 	app.AddTask(&task.FirstCode{})
 
 	app.AddTask((&task.ReadWrite{}))
-
-	app.AddTask((&task.TestTask{}))
 
 	taskName := ""
 	if len(os.Args) > 1 {
